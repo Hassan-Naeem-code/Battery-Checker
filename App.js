@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -24,6 +24,7 @@ export default function App() {
       console.log('isCharging', isCharging);
       setChargeState(isCharging);
     });
+    
     console.log('NativeModules', NativeModules);
   });
   const calculateEstimateTime = () => {
@@ -35,7 +36,7 @@ export default function App() {
     );
     return (
       <Text
-        style={[styles.subHeading, styles.fontWeightBold, {marginTop: '2%'}]}>
+        style={[styles.subHeading, styles.fontWeightBold, { marginTop: '2%' }]}>
         {requiredTimeToFullCharge} Minutes
       </Text>
     );
@@ -43,19 +44,19 @@ export default function App() {
   return (
     <ImageBackground
       style={styles.container}
-      source={require('./assets/chargingBackground.jpg')}
+      source={require('./assets/charging.png')}
       resizeMode={'cover'}>
       <View style={styles.mainHeadingWrapper}>
-        <Text style={styles.mainHeading}>EV - CHARGING PARAMETERS</Text>
+        <Text style={styles.mainHeading}>ASFALEIA EV - CHARGER</Text>
       </View>
       <View style={styles.chargingWrapper}>
-        <View style={[styles.center, styles.paddingVertical10]}>
+        <View style={[styles.center, styles.paddingVertical10, { borderRadius: 20, backgroundColor: 'rgba(0,0,0,0.8)', paddingHorizontal: 20, }]}>
           <Text style={styles.subHeading}>State Of Charge</Text>
           <Text
             style={[
               styles.subHeading,
               styles.fontWeightBold,
-              {color: chargeState ? 'red' : 'green', marginTop: '2%'},
+              { color: chargeState ? 'red' : 'green', marginTop: '2%' },
             ]}>
             {chargeState ? 'CONNECTED' : 'NOT CONNECTED'}
           </Text>
@@ -65,7 +66,11 @@ export default function App() {
             <FontAwesome name={'battery'} color={'green'} size={30} />
           )} */}
         </View>
-        <View style={styles.center}>
+        <View style={[styles.center, {
+          borderRadius: 20,
+          marginTop:10,
+           backgroundColor: 'rgba(0,0,0,0.8)', paddingHorizontal: 20,
+        }]}>
           <Text style={styles.subHeading}>Battery Percentage</Text>
           <View style={[styles.directionRow, styles.marginVertical10]}>
             <MaterialCommunityIcons
@@ -92,7 +97,7 @@ export default function App() {
           </View>
         )}
       </View>
-    </ImageBackground>
+    </ImageBackground >
   );
 }
 
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
   },
   mainHeadingWrapper: {
     position: 'absolute',
-    top: '20%',
+    top: '15%',
     right: '3%',
   },
   chargingWrapper: {
