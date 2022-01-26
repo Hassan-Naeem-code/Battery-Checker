@@ -14,18 +14,18 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export default function App() {
   const [chargeState, setChargeState] = useState(false);
   const [batteryLevel, setBatteryLevel] = useState(0);
-  useEffect(() => {
-    DeviceInfo.getPowerState().then(state => {
-      setBatteryLevel(state.batteryLevel * 100);
-      console.log('batteryLevel', state.batteryLevel * 100);
-    });
-    DeviceInfo.isBatteryCharging().then(isCharging => {
-      // true or false
-      console.log('isCharging', isCharging);
-      setChargeState(isCharging);
-    });
-    
-    console.log('NativeModules', NativeModules);
+  // useEffect(() => {
+
+  //   console.log('NativeModules', NativeModules);
+  // });
+  DeviceInfo.getPowerState().then(state => {
+    setBatteryLevel(state.batteryLevel * 100);
+    console.log('batteryLevel', state.batteryLevel * 100);
+  });
+  DeviceInfo.isBatteryCharging().then(isCharging => {
+    // true or false
+    console.log('isCharging', isCharging);
+    setChargeState(isCharging);
   });
   const calculateEstimateTime = () => {
     let currentBatteryLevel = batteryLevel / 100;
@@ -36,7 +36,7 @@ export default function App() {
     );
     return (
       <Text
-        style={[styles.subHeading, styles.fontWeightBold, { marginTop: '2%' }]}>
+        style={[styles.subHeading, styles.fontWeightBold, { marginTop: '2%', marginLeft: '2%', }]}>
         {requiredTimeToFullCharge} Minutes
       </Text>
     );
@@ -44,8 +44,8 @@ export default function App() {
   return (
     <ImageBackground
       style={styles.container}
-      source={require('./assets/charging.png')}
-      resizeMode={'cover'}>
+      source={require('./assets/charging.jpg')}
+      resizeMode={'contain'}>
       <View style={styles.mainHeadingWrapper}>
         <Text style={styles.mainHeading}>ASFALEIA EV - CHARGER</Text>
       </View>
@@ -56,7 +56,7 @@ export default function App() {
             style={[
               styles.subHeading,
               styles.fontWeightBold,
-              { color: chargeState ? 'red' : 'green', marginTop: '2%' },
+              { color: chargeState ? 'green' : 'red', marginTop: '2%' },
             ]}>
             {chargeState ? 'CONNECTED' : 'NOT CONNECTED'}
           </Text>
@@ -68,14 +68,14 @@ export default function App() {
         </View>
         <View style={[styles.center, {
           borderRadius: 20,
-          marginTop:10,
-           backgroundColor: 'rgba(0,0,0,0.8)', paddingHorizontal: 20,
+          marginTop: 10,
+          backgroundColor: 'rgba(0,0,0,0.8)', paddingHorizontal: 20,
         }]}>
           <Text style={styles.subHeading}>Battery Percentage</Text>
           <View style={[styles.directionRow, styles.marginVertical10]}>
             <MaterialCommunityIcons
               name={'lightning-bolt'}
-              color={chargeState ? 'red' : 'green'}
+              color={chargeState ? 'green' : 'red'}
               size={30}
             />
             <Text style={[styles.subHeading, styles.fontWeightBold]}>
@@ -84,7 +84,11 @@ export default function App() {
           </View>
         </View>
         {chargeState && (
-          <View style={styles.center}>
+          <View style={styles.center, {
+            borderRadius: 20,
+            marginTop: 10,
+            backgroundColor: 'rgba(0,0,0,0.8)', paddingHorizontal: 20,
+          }}>
             <Text style={styles.subHeading}>Time Required</Text>
             <View style={[styles.directionRow, styles.marginVertical10]}>
               <MaterialCommunityIcons
@@ -104,11 +108,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    height: '100%',
+    width: '100%',
   },
   mainHeadingWrapper: {
     position: 'absolute',
-    top: '15%',
-    right: '3%',
+    top: '20%',
+    width: '100%'
+    // right: '3%',
   },
   chargingWrapper: {
     position: 'absolute',
@@ -118,8 +126,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainHeading: {
-    fontSize: 38,
+    fontSize: 30,
     textAlign: 'center',
+    backgroundColor: 'rgba(225,225,225,0.7)',
+    color: 'black',
     fontWeight: '700',
   },
   subHeading: {
